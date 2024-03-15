@@ -25,13 +25,14 @@ fs.readFile(path.resolve(__dirname, '../data/users.json'), function(err, data) {
 
   app.use(cors({origin: 'http://localhost:3000'}));
   app.use(addMsgToRequest);
-  app.use(express.json());
+
   app.use(express.urlencoded({ extended: true }));
 
   // Import and use the routers
   const readUsers = require('./readUsers');
   const writeUsers = require('./writeUsers');
   app.use('/read', readUsers);
+  app.use(express.json());
   app.use('/write', writeUsers);
 
   app.listen(port, () => {
